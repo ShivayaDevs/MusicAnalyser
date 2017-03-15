@@ -1,0 +1,72 @@
+#biggest-div{
+    /*position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    width: 200px;*/
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*display: table;*/
+    /*background-color: #ff00ff;*/
+}
+
+.width-50{
+    width: 50%;
+}
+.buttons{
+    -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+    font-family: arial,sans-serif;
+    border: 1px solid #c6c6c6;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    color: #222;    
+    height: 36px;
+    line-height: 27px;
+    cursor: default;
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 11px 4px;
+    min-width: 70px;
+    padding: 0 16px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.buttons:hover{
+    box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+}
+
+#lato{
+    font-family: 'Lato', sans-serif;
+}
+
+.card,.card-without-hover{
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.2);
+    transition: 0.4s;
+  /*  text-align: center;
+    display: inline;*/
+}
+
+.card:hover{
+    box-shadow: 4px 16px 16px rgba(0,0,0,0.2);
+}
+
+.inline-heading{
+    display: inline;
+    margin-top: 0px;
+}
+
+.flex{
+    display: flex;
+}
+
+.artist{
+    color: #333333;
+}
+
+.light-label{
+    color: #808080;
+}
