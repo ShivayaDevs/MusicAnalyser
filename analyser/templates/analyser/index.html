@@ -18,7 +18,9 @@
             <img src="{% static 'images/music-player.svg' %}" height="250px">
             <br><br>
 
-            <form enctype="multipart/form-data">
+            <form enctype="multipart/form-data" method="post" action="{% url 'analyser:upload' %}">
+
+                {% csrf_token %}
 
                 <div class="width-50">
                     <input id="input-file" name="music-input" type="file" accept="audio/*"
