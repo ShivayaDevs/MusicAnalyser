@@ -6,6 +6,7 @@ import numpy
 from descriptors import * 
 from musicfeatures import Features, Num, normalize
 import eyed3
+import json
 
 CONFIG = {'model': 'model_allb'}# model_tri1
 params = {'n_fft':4096, 'hop_len':64, 'func': np.mean}
@@ -31,7 +32,7 @@ def depickle(model_name):
     coding = model['coding']
     return clf, normin, normax, featinfo, coding
 
-def calculate_features(path,piece_len=60):
+def calculate_features(path,piece_len=30):
     """
     It return features and unknown class 'x' for music piece from *path*
     Set of features:  rms, hoc, beats, chromagram, tempo, spectral centroids
@@ -65,14 +66,18 @@ class MusicEmoReco():
         self.getFileProperties()
         # get the features of the song
         self.make_features()
+        # generate json data 
+        self.generate_json_data()
 
     
     def plot_reco(self,predictions):
         predictions*=100
         print("Predictions : ")
-        # print(predictions)
-        for i in range(len(emotions)) :
-            print(emotions[i], predictions[i])
+        # print(predictions
+
+        val, idx = max((val, idx) for (idx, val) in enumerate(predictions))
+        # print(emotions[idx])
+        self.emot = emotions[idx]
 
         # plot the bar chart
         # y_pos = numpy.arange(len(objects))
@@ -83,6 +88,17 @@ class MusicEmoReco():
         # figure = plt.figure()
         # plt.show()
         # figure.savefig("/home/vagisha/Projects/Django/musicemotionrecognition/emotionPlot.png")
+
+    def generate_json_data(self) :
+        data = {}
+        data['emotion'] = self.emot
+        data['artist'] = self.artist
+        data['album'] = self.album
+        data['title'] = self.title
+        self.json_data = json.dumps(data)
+
+    def return_json(self) :
+        return self.json_data
 
     def load_model(self):
         "It loads a file with model saved as a dictionary in python cPickle"
@@ -110,11 +126,13 @@ class MusicEmoReco():
 
     def getFileProperties(self) :
         audiofile = eyed3.load(self.path)
-        print("Artist : ")
-        print(audiofile.tag.artist)
-        print("Album : ")
-        print(audiofile.tag.album) 
-
+        self.artist = audiofile.tag.artist
+        self.album = audiofile.tag.album
+        self.title = audiofile.tag.title
+        # print(self.artist)
+        # print(self.album)
+        # print(self.title)
+        
 
 if __name__ == '__main__':
 
@@ -123,6 +141,7 @@ if __name__ == '__main__':
     # path contains the path of the audio file to be analyzed
     # path = "/home/vagisha/Projects/Django/musicemotionrecognition/audio_files/song.mp3"
     path = os.path.join(folder_path,song_name)
-    print(path)
-    MusicEmoReco(path)
+    # json data 
+    json_data = MusicEmoReco(path).return_json()
+    print(json_data)
     sys.exit()
