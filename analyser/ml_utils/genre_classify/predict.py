@@ -7,18 +7,7 @@ from scikits.talkbox.features import mfcc
 from pydub import AudioSegment
 from sklearn.externals import joblib
 
-def predict_song(path) :
-	
-	#convert to wav
-	#os.system("sox "+str(path)+" " + str(path[:-3]) + ".wav")
-	song = AudioSegment.from_file(path)
-	song = song[:30000]
-	song.export(path[:-3]+"wav",format='wav')
-	
-	#ceps
-
-	base_wav, ext = os.path.splitext(path)
-	wavfile = base_wav + ".wav"
+def predict_song(wavfile) :
 	sampling_rate, song_array = scipy.io.wavfile.read(wavfile)
 	song_array[song_array==0]=1
 	ceps, mspec, spec = mfcc(song_array)
