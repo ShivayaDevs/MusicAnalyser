@@ -1,0 +1,4 @@
+*.pyc
+.idea
+
+# Also include dataset folders 
