@@ -95,10 +95,11 @@ class MusicEmoReco():
         data['artist'] = self.artist
         data['album'] = self.album
         data['title'] = self.title
-        self.json_data = json.dumps(data)
+        self.data = data
+        # self.json_data = json.dumps(data)
 
-    def return_json(self) :
-        return self.json_data
+    def return_data(self) :
+        return self.data
 
     def load_model(self):
         "It loads a file with model saved as a dictionary in python cPickle"
@@ -142,6 +143,6 @@ if __name__ == '__main__':
     # path = "/home/vagisha/Projects/Django/musicemotionrecognition/audio_files/song.mp3"
     path = os.path.join(folder_path,song_name)
     # json data 
-    json_data = MusicEmoReco(path).return_json()
-    print(json_data)
+    data = MusicEmoReco(path).return_data()
+    print(data)
     sys.exit()
