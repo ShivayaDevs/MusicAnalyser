@@ -53,6 +53,8 @@ def calculate_features(path,piece_len=30):
         feats,clas = 0,0
     return feats, clas
 
+def runMusicEmoReco(path) :
+    return MusicEmoReco(path).return_data()
 
 class MusicEmoReco():
     "Main application for music emotion recognition"
@@ -72,22 +74,8 @@ class MusicEmoReco():
     
     def plot_reco(self,predictions):
         predictions*=100
-        print("Predictions : ")
-        # print(predictions
-
         val, idx = max((val, idx) for (idx, val) in enumerate(predictions))
-        # print(emotions[idx])
         self.emot = emotions[idx]
-
-        # plot the bar chart
-        # y_pos = numpy.arange(len(objects))
-        # plt.bar(y_pos, predictions, align='center', alpha=0.5)
-        # plt.xticks(y_pos, objects)
-        # plt.ylabel('Probability [%]')
-        # plt.title('Emotion v/s Probability')
-        # figure = plt.figure()
-        # plt.show()
-        # figure.savefig("/home/vagisha/Projects/Django/musicemotionrecognition/emotionPlot.png")
 
     def generate_json_data(self) :
         data = {}
@@ -96,7 +84,6 @@ class MusicEmoReco():
         data['album'] = self.album
         data['title'] = self.title
         self.data = data
-        # self.json_data = json.dumps(data)
 
     def return_data(self) :
         return self.data
@@ -109,7 +96,7 @@ class MusicEmoReco():
             raise e
 
     def make_features(self):
-        print("Calculating features for classification")
+        "Calculating features for classification"
         self.feats,self.clas = calculate_features(self.path)
         self.classify()
 
@@ -130,19 +117,11 @@ class MusicEmoReco():
         self.artist = audiofile.tag.artist
         self.album = audiofile.tag.album
         self.title = audiofile.tag.title
-        # print(self.artist)
-        # print(self.album)
-        # print(self.title)
         
 
 if __name__ == '__main__':
 
-    song_name = sys.argv[1:][0]
-    folder_path = os.path.join(os.getcwd(),'audio_files')
-    # path contains the path of the audio file to be analyzed
-    # path = "/home/vagisha/Projects/Django/musicemotionrecognition/audio_files/song.mp3"
-    path = os.path.join(folder_path,song_name)
-    # json data 
-    data = MusicEmoReco(path).return_data()
-    print(data)
+    path = "/home/vagisha/Projects/Django/MusicAnalyser/analyser/ml_utils/audio_files/song4.mp3"
+    data = runMusicEmoReco(path)
+    # print(data)
     sys.exit()
