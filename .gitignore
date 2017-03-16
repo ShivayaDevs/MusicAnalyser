@@ -2,4 +2,7 @@
 .idea
 .mp3
 
+*.png
+/analyser/ml_utils/feature_extraction/main.py
+
 # Also include dataset folders 
