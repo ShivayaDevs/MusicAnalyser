@@ -28,7 +28,7 @@ def upload_file(request):
 
         return render(request, 'analyser/feature_home.html', {
             'uploaded_filename': filename,
-            'show_loading_animation': False,
+            'show_loading_animation': True,
             'artist': tags['artist'],
             'title': tags['title'],
             'album': tags['album'],
@@ -83,7 +83,7 @@ def get_features(request):
     data['flux-image-url'] = dest_base + 'spectral_flux.png'
 
     data['roll'] = ef.spectral_rolloff(avg_wavedata, sample_rate)
-    data['roll-image-url'] = dest_base + 'spectral_rolloff.png'
+    data['roll-image-url'] = dest_base + 'spectral_roll.png'
 
     return JsonResponse(data)
 
