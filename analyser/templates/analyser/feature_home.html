@@ -10,8 +10,8 @@ Features
 
 {% if show_loading_animation %}
 <!-- Animation -->
-<div id="loader-wrapper">
-    <div id="loader"></div>
+<div class="loader-wrapper">
+    <div class="loader"></div>
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
 </div>
@@ -51,11 +51,12 @@ Features
     <!-- EMOTION CARD -->
     <div class="container" style="width: 50%;">
         <div class="card-without-hover">
+<!--{% static 'images/emoticons/happy.svg' %}-->
             <center>
                 <br>
-                <img src="{% static 'images/emoticons/happy.svg' %}" width="100px" height="100px"><br>
+                <img id="emo-image" src="" width="100px" height="100px"><br>
                 <br>
-                <h3 class="inline-heading">Happy!</h3>
+                <h3 class="inline-heading" id="emo-name-display">w</h3>
                 <br><br>
             </center>
         </div>
@@ -126,4 +127,6 @@ Features
         <img src="{% static 'images/shots/5.jpeg' %}" style="width: 100%;">
     </div>
 </div>
+<p id="filename-para" style="opacity:0;">{{ uploaded_filename }}</p>
+<script src="{% static 'js/datafetcher.js' %}"></script>
 {% endblock %}
