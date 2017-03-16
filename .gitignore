@@ -1,4 +1,5 @@
 *.pyc
 .idea
+.mp3
 
 # Also include dataset folders 

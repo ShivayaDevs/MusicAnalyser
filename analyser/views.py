@@ -13,11 +13,12 @@ def upload_file(request):
         filename = fs.save(audio_file.name, audio_file)
         uploaded_file_url = fs.url(filename)
 
-        return render(request, 'analyser/success.html', {
-            'uploaded_file_url': uploaded_file_url
+        return render(request, 'analyser/feature_home.html', {
+            'uploaded_file_url': uploaded_file_url ,
+            'show_loading_animation': True,
         })
-    return render(request, 'analysis/success.html')
+    return render(request, 'analyser/index.html')
 
 
 def features_home(request):
-    return render(request, 'analyser/feature_home.html', {})
+    return render(request, 'analyser/feature_home.html', { 'show_loading_animation': True})

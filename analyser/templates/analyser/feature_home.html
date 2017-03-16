@@ -1,12 +1,22 @@
 {% extends 'analyser/base.html' %}
 
 {% block title %}
-    Features
+Features
 {% endblock %}
 
 {% load static %}
 
 {% block content %}
+
+{% if show_loading_animation %}
+<!-- Animation -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+{% endif %}
+
 <br>
 
 <!-- TITLE CARD -->
@@ -15,7 +25,7 @@
         <div>
             <div class="flex">
                 <img src="{% static 'images/music-player-1.svg' %}" width="25px" height="25px">&nbsp;&nbsp;
-                <h2 class="title inline-heading">Aaoge Jab Tum</h2>
+                <h2 class="title inline-heading"> Aaoge Jab Tum </h2>
             </div>
             <div class="flex">
                 <img src="{% static 'images/microphone.svg' %}" width="25px" height="25px">&nbsp;&nbsp;
@@ -27,7 +37,8 @@
         </div>
 
         <div style="width: 60%">
-            <img src="{% static 'images/music-player-2.svg' %}" height="150px" style="float: right; margin-right: 100px;"
+            <img src="{% static 'images/music-player-2.svg' %}" height="150px"
+                 style="float: right; margin-right: 100px;"
                  align="right">
         </div>
     </div>
