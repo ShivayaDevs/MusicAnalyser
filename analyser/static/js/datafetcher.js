@@ -7,14 +7,14 @@ console.log(filename);
 /*******************************************************************/
 
 /* Send a request to fetch emotion data */
-$.ajax({
-    url: '../ajax/emotion/',
-    data: {
-        'filename': filename
-    },
-    dataType: 'json',
-    success: setEmotion
-});
+//$.ajax({
+//    url: '../ajax/emotion/',
+//    data: {
+//        'filename': filename
+//    },
+//    dataType: 'json',
+//    success: setEmotion
+//});
 
 function setEmotion(data){
     $('#emo-name-display').html(data['emotion']);
@@ -23,24 +23,20 @@ function setEmotion(data){
 }
 
 /*******************************************************************/
-$.ajax({
-    url: '../ajax/tags/',
-    data: {
-        'filename': filename
-    },
-    dataType: 'json',
-    success: setTags
-});
-/*******************************************************************/
+//
+//$.ajax({
+//    url: '../ajax/genre/',
+//    data: {
+//        'filename': filename
+//    },
+//    dataType: 'json',
+//    success: setGenre
+//});
 
-$.ajax({
-    url: '../ajax/genre/',
-    data: {
-        'filename': filename
-    },
-    dataType: 'json',
-    success: setGenre
-});
+function setGenre(data){
+    console.log(data);
+    $('#genre-tv').html(data['genre']);
+}
 /*******************************************************************/
 
 $.ajax({
@@ -51,4 +47,8 @@ $.ajax({
     dataType: 'json',
     success: setFeatures
 });
+function setFeatures(data){
+    console.log(data);
+}
+
 

@@ -4,5 +4,5 @@
 
 *.png
 /analyser/ml_utils/feature_extraction/main.py
-
+/analyser/uploaded_files
 # Also include dataset folders 

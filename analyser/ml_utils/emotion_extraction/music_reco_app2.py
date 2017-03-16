@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 plt.rcdefaults()
 from descriptors import *
 from musicfeatures import Features
-import eyed3
 
 CONFIG = {'model': 'model_allb'}  # model_tri1
 params = {'n_fft': 4096, 'hop_len': 64, 'func': np.mean}
@@ -59,7 +58,6 @@ def calculate_features(path, piece_len=30):
 def runMusicEmoReco(path):
     return MusicEmoReco(path).return_data()
 
-
 class MusicEmoReco():
     "Main application for music emotion recognition"
 
@@ -69,8 +67,6 @@ class MusicEmoReco():
         self.path = path
         # load the pickel file of the model
         self.load_model()
-        # get the ID3 Properties of the file
-        self.getFileProperties()
         # get the features of the song
         self.make_features()
         # generate json data 
@@ -84,9 +80,6 @@ class MusicEmoReco():
     def generate_json_data(self):
         data = {}
         data['emotion'] = self.emot
-        data['artist'] = self.artist
-        data['album'] = self.album
-        data['title'] = self.title
         self.data = data
 
     def return_data(self):
@@ -113,11 +106,6 @@ class MusicEmoReco():
             self.ups('Bad file format!')
             print('Bad file format!')
 
-    def getFileProperties(self):
-        audiofile = eyed3.load(self.path)
-        self.artist = audiofile.tag.artist
-        self.album = audiofile.tag.album
-        self.title = audiofile.tag.title
 
 
 if __name__ == '__main__':

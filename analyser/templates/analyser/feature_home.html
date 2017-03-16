@@ -25,11 +25,11 @@ Features
         <div>
             <div class="flex">
                 <img src="{% static 'images/music-player-1.svg' %}" width="25px" height="25px">&nbsp;&nbsp;
-                <h2 class="title inline-heading"> Aaoge Jab Tum </h2>
+                <h2 class="title inline-heading">{{ title }}</h2>
             </div>
             <div class="flex">
                 <img src="{% static 'images/microphone.svg' %}" width="25px" height="25px">&nbsp;&nbsp;
-                <h4 class="artist inline-heading">Arijit Singh</h4>
+                <h4 class="artist inline-heading">{{ artist }}</h4>
             </div>
             <br>
             <p>Sampling Rate: <b>44100 Hz</b></p>
@@ -69,7 +69,7 @@ Features
                 <br>
                 <img src="{% static 'images/bookmark.png' %}" width="100px" height="100px"><br>
                 <br>
-                <h3 class="inline-heading">Rock!</h3>
+                <h3 class="inline-heading" id="genre-tv">Rock!</h3>
                 <br><br>
             </center>
         </div>

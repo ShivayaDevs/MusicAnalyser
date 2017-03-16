@@ -2,37 +2,15 @@ import warnings
 warnings.filterwarnings('ignore')
 # numerical processing and scientific libraries
 import numpy as np
-import scipy
 # signal processing
-from scipy.io                     import wavfile
-from scipy                        import stats, signal
-from scipy.fftpack                import fft
-
-from scipy.signal                 import lfilter, hamming
-from scipy.fftpack.realtransforms import dct
-from scikits.talkbox              import segment_axis
-from scikits.talkbox.features     import mfcc
+from scipy.io import wavfile
 
 # general purpose
-import collections
 
 # plotting
-import matplotlib.pyplot as plt
-from numpy.lib                    import stride_tricks
 # Classification and evaluation
-from sklearn.preprocessing import StandardScaler
-from sklearn import svm
-from sklearn.cross_validation import StratifiedKFold, ShuffleSplit, cross_val_score
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-import pandas as pd
 # general purpose
-import collections
 # plotting
-import matplotlib.pyplot as plt
-from numpy.lib import stride_tricks
 #utility file
 import utility
 
@@ -55,7 +33,7 @@ num_samples: number of samples
 length: length of audio sample taken
  '''
 def general_features(wavedata, samplerate) :
-  num_samples = wavedata.shape[0] 
+  num_samples = wavedata.shape[0]
   length = num_samples/samplerate
   return(num_samples, length)
 
@@ -64,14 +42,14 @@ it plots the values mapped by wave file and time
 output file => wavedata.png
 '''
 def plot_waveform(wavedata) :
-  utility.show_stereo_waveform(wavedata,"./images/wavedata.png")
+  utility.show_stereo_waveform(wavedata,"analyser/static/images/wavedata.png")
 
 '''
 it plots the fourier transform
 output=> fourier.png
 '''
 def plot_fourier(wavedata, samplerate) :
-  utility.plotstft(wavedata, samplerate, "images/fourier.png")
+  utility.plotstft(wavedata, samplerate, "analyser/static/images/fourier.png")
 
 '''
 Zero Crossing Rate It represents the number of times the waveform crosses
@@ -83,7 +61,7 @@ def zero_crossing_rate(wavedata, number_of_samples) :
   for i in range(1, number_of_samples):
     if ( wavedata[i - 1] <  0 and wavedata[i] >  0 ) or ( wavedata[i - 1] >  0 and wavedata[i] <  0 ) or ( wavedata[i - 1] != 0 and wavedata[i] == 0):
       zero_crossings += 1
-              
+
   zero_crossing_rate = zero_crossings / float(number_of_samples - 1)
 
   return zero_crossing_rate
@@ -93,7 +71,7 @@ equivalent heating energy
 output plot => rms.png
 '''
 def root_mean_square(wavedata, sample_rate, block_length = 2048):
-  
+
   # how many blocks have to be processed?
   num_blocks = int(np.ceil(len(wavedata)/block_length))
   # when do these blocks begin (time in seconds)?
@@ -107,7 +85,7 @@ def root_mean_square(wavedata, sample_rate, block_length = 2048):
 
   rms = np.asarray(rms)
   timestamp = np.asarray(timestamps)
-  utility.show_feature_superimposed(wavedata,sample_rate, rms, timestamp,"images/rms.png",squared_wf=False);
+  utility.show_feature_superimposed(wavedata,sample_rate, rms, timestamp,"analyser/static/images/rms.png",squared_wf=False);
   return  np.mean(rms)
 
 '''
@@ -121,7 +99,7 @@ Spectral Centroid: It describes where the centre of mass for sound is. It
 '''
 def spectral_centroid(wavedata,sample_rate, window_size = 2048):
   magnitude_spectrum = utility.stft(wavedata, window_size)
-  timebins, freqbins = np.shape(magnitude_spectrum) 
+  timebins, freqbins = np.shape(magnitude_spectrum)
   # when do these blocks begin (time in seconds)?
   timestamps = (np.arange(0,timebins - 1) * (timebins / float(sample_rate)))
   sc = []
@@ -132,7 +110,7 @@ def spectral_centroid(wavedata,sample_rate, window_size = 2048):
   sc = np.asarray(sc)
   sc = np.nan_to_num(sc)
   timestamps = np.asarray(timestamps)
-  utility.show_feature_superimposed(wavedata,sample_rate, sc, timestamps,"images/spectral_centroid.png", squared_wf=False)
+  utility.show_feature_superimposed(wavedata,sample_rate, sc, timestamps,"analyser/static/images/spectral_centroid.png", squared_wf=False)
   return  np.mean(sc)
 
 
@@ -150,7 +128,7 @@ def spectral_flux(wavedata, sample_rate, window_size = 1024):
   sf = np.sqrt(np.sum(np.diff(np.abs(magnitude_spectrum))**2, axis=1)) / freqbins
   sf =  sf[1:]
   timestamps = np.asarray(timestamps)
-  utility.show_feature_superimposed(wavedata,sample_rate, sf, timestamps,"images/spectral_flux.png", squared_wf=False)
+  utility.show_feature_superimposed(wavedata,sample_rate, sf, timestamps,"analyser/static/images/spectral_flux.png", squared_wf=False)
   return np.mean(sf)
 
 '''
@@ -178,6 +156,6 @@ def spectral_rolloff(wavedata,  sample_rate,window_size=1024,k=0.85):
   # convert frequency-bin index to frequency in Hz
   sr = (sr / freqbins) * (sample_rate / 2.0)
   timestamps =  np.asarray(timestamps)
-  utility.show_feature_superimposed(wavedata,sample_rate, sr, timestamps,"images/spectral_roll.png", squared_wf=False)
+  utility.show_feature_superimposed(wavedata,sample_rate, sr, timestamps,"analyser/static/images/spectral_roll.png", squared_wf=False)
   return np.mean(sr)
 
