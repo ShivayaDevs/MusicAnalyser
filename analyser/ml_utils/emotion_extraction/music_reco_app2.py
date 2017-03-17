@@ -44,9 +44,10 @@ def calculate_features(path, piece_len=30):
         musicfeat.windowing(10, 1)
         musicfeat.add_winbased_features(rms)
         musicfeat.add_winbased_features(simple_hoc)
-        musicfeat.add_winbased_features(beats, params)
+        # musicfeat.add_winbased_features(beats, params)
         musicfeat.add_winbased_features(chromagram_feat, params)
-        musicfeat.add_winbased_features(tempo, params)
+        musicfeat.add_winbased_features2(tempoAndBeats, params)
+        # musicfeat.add_winbased_features(tempo, params)
         musicfeat.add_winbased_features(spectral_centroids, params)
         feats, clas = musicfeat.example
     except Exception as e:

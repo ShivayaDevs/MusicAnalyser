@@ -3,10 +3,10 @@ import scipy.stats as st
 import librosa
 import matplotlib.pyplot as plt 
 
-def tempo(signal,fs,hop_len = 64, **kwargs):
+def tempoAndBeats(signal,fs,hop_len = 64, **kwargs):
     """tempo for a music piece *signal*"""
     tempo, beats = librosa.beat.beat_track(y=signal, sr=fs, hop_length=hop_len)
-    return tempo 
+    return tempo, len(beats)
 def beats(signal,fs,hop_len = 64, **kwargs):
     """number of beats for a music piece *signal*"""
     tempo, beat_ = librosa.beat.beat_track(y=signal, sr=fs, hop_length=hop_len)

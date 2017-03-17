@@ -32,6 +32,16 @@ class Features:
                 return [function(signal,**params)]
             else:
                 return [function(signal)]
+
+    def _featadd2(self,signal,function,params=0):
+        feat_ = []
+        try:
+            feat_1, feat_2 = function(signal,**params) 
+            return [x for x in feat_1], [x for x in feat_2]
+        except TypeError:
+            feat_1, feat_2 = function(signal,**params) 
+            return [feat_1], [feat_2]
+
     def add_features(self,function, params = 0):
         """It adds all features calculated from *function* with *params*
         for each window (if windowing was done)."""
@@ -53,6 +63,32 @@ class Features:
             self.features.extend(list(_cf))
         except TypeError:
             self.features.extend([_cf])
+
+
+    def add_winbased_features2(self,function, params = 0, comparefun = np.mean):
+        """It applies function *comparefun* for features calculated from 
+        *function* with *params* for windows (if windowing was done)."""
+        assert self.winflag==True
+        feat_ = []
+        feat2_ = []
+        
+        for sig in self.cutted:
+            x, y = self._featadd2(sig,function,params)
+            feat_.append(x)
+            feat2_.append(y)
+            
+        _cf = comparefun(np.array(feat_),axis=0)
+        try:
+            self.features.extend(list(_cf))
+        except TypeError:
+            self.features.extend([_cf])
+
+        _cf = comparefun(np.array(feat2_),axis=0)
+        try:
+            self.features.extend(list(_cf))
+        except TypeError:
+            self.features.extend([_cf])
+            
     def windowing(self, win_len,win_step):
         """It cuts music piece for windows of length *win_len* and step
         *win_step* given in seconds"""
